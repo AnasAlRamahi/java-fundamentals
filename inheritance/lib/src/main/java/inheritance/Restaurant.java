@@ -51,7 +51,7 @@ public class Restaurant {
     public void addReview(Review review){
         if (!reviewsList.contains(review)) {
             reviewsList.add(review);
-            this.stars = (this.stars * (reviewsList.size()-1) + review.getStars())/ reviewsList.size();
+            this.stars = (this.stars * (reviewsList.size()) + review.getStars())/ (reviewsList.size()+1);
         }
     }
 }
