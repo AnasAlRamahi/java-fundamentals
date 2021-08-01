@@ -45,11 +45,11 @@ class LibraryTest {
     @Test
     void addReviewInRestaurant() {
         Restaurant res = new Restaurant("mac", 3, 3);
-        Review rev1 = new Review("Nice restaurant", "Majd", 4);
-        Review rev2 = new Review("Not a bad restaurant", "Saify", 3);
+        Review rev1 = new Review("Nice restaurant", "Majd", 5);
+        Review rev2 = new Review("Not a bad restaurant", "Saify", 4);
         res.addReview(rev1);
         res.addReview(rev2);
-        String expectedString = "This is a Restaurant instance, with name: mac, stars: 3.5, price category: 3\n" +
+        String expectedString = "This is a Restaurant instance, with name: mac, stars: 4.0, price category: 3\n" +
                 "Nice restaurant\n" +
                 "Not a bad restaurant\n";
         assertEquals(expectedString, res.toString());
