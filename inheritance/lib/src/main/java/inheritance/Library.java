@@ -17,19 +17,27 @@ public class Library {
         res.addReview(rev2);
         res.toString();
 
-//        ArrayList<String> movies = new ArrayList<String>();
-//
-//        Theater th = new Theater("City mall Theater",movies);
-//        movies.add("matrix");
-//        movies.add("potato");
-//        movies.add("lord of the rings");
-//        movies.add("inception");
-//
+        ArrayList<String> movies = new ArrayList<String>();
+        Theater th = new Theater("City mall Theater",movies);
+        movies.add("matrix");
+        movies.add("potato");
+        movies.add("lord of the rings");
+        movies.add("inception");
+
+        Review rev3 = new Review("Amazing", "Anas", 3);
+        Review rev4 = new Review("Nice", "Majd", 4, "Inception");
+        th.addReview(rev3);
+        th.addReview(rev4);
+
+        System.out.println(th.reviewsList.toString());
+
 //        th.removeMovie("potato");
 //        th.addMovie("taken");
-//
+
 //        System.out.println(th);
-//        System.out.println(th.getMovies());
+        System.out.println(th.getMovies());
+
+        System.out.println(th.reviewsList);
 //
 //
 //        Shop sh = new Shop("potato", "potatos are the best", 4);

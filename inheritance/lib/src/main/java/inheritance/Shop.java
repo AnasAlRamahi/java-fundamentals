@@ -34,6 +34,9 @@ public class Shop extends Service{
 
     public String toString(){
         String content = "This is a Shop instance, with name: " + this.getName() + ", description: " + this.getDescription() + ", number of dollar signs: " + this.getNumDollarSigns();
+        for (Review review : reviewsList) {
+            content +=  "\n" + review;
+        }
         return  content;
     }
 

@@ -5,8 +5,9 @@
 package inheritance;
 
 import org.junit.jupiter.api.Test;
-
 import static org.junit.jupiter.api.Assertions.*;
+import java.util.ArrayList;
+import java.util.List;
 
 class LibraryTest {
 
@@ -87,7 +88,7 @@ class LibraryTest {
 
     @Test
     void shopReviewConstructor(){
-        ShopReview shopreview = new ShopReview("Amazing shop!", "Anas", 4);
+        Review shopreview = new Review("Amazing shop!", "Anas", 4);
         assertEquals("Amazing shop!", shopreview.getBody());
         assertEquals("Anas", shopreview.getAuthor());
         assertEquals(4, shopreview.getStars());
@@ -95,10 +96,159 @@ class LibraryTest {
 
     @Test
     void shopReviewToString(){
-        ShopReview shopreview = new ShopReview("Nice", "Saify", 3);
-        String expected = "Shop Review instance, with body: Nice, author: Saify, stars: 3";
+        Review shopreview = new Review("Nice", "Saify", 3);
+        String expected = "Review instance, with body: Nice, author: Saify, stars: 3";
         assertEquals(expected, shopreview.toString());
     }
+
+    @Test
+    void shopAddReview(){
+        Shop shop = new Shop("Ramahi", "The best place to buy the best meal you will ever have in your life!", 3);
+        Review r1 = new Review("Good", "Anas", 3);
+        Review r2 = new Review("Great", "Saify", 4);
+        Review r3 = new Review("Awsome", "Majd", 5);
+
+        shop.addReview(r1);
+        shop.addReview(r2);
+        shop.addReview(r3);
+
+        String expected = "This is a Shop instance, with name: Ramahi, description: The best place to buy the best meal you will ever have in your life!, number of dollar signs: 3" +
+                "\nReview instance, with body: Good, author: Anas, stars: 3" +
+                "\nReview instance, with body: Great, author: Saify, stars: 4" +
+                "\nReview instance, with body: Awsome, author: Majd, stars: 5";
+
+        assertEquals(expected, shop.toString());
+    }
+
+    @Test
+    void shopStarsCount(){
+        Shop shop = new Shop("Ramahi", "The best place to buy the best meal you will ever have in your life!", 3);
+
+        Review r1 = new Review("Nice", "Anas", 3 );
+        Review r2 = new Review("Great", "Majd", 5);
+        Review r3 = new Review("Too bad", "Saify", 1);
+        shop.addReview(r1);
+        shop.addReview(r2);
+        shop.addReview(r3);
+
+        double expected = 3.0;
+        assertEquals(expected, shop.getStars());
+    }
+
+    @Test
+    void theaterToString(){
+        ArrayList<String> movies = new ArrayList<String>();
+        Theater th = new Theater("Taj Movies", movies);
+
+        String expected = "This is a Theater instance, with name: Taj Movies, with these movies:\n";
+        assertEquals(expected, th.toString());
+
+        th.addMovie("Taken");
+        th.addMovie("Inception");
+        th.addMovie("Conjuring");
+
+        expected = "This is a Theater instance, with name: Taj Movies, with these movies:\n" +
+                "Taken\n" +
+                "Inception\n" +
+                "Conjuring\n";
+        assertEquals(expected, th.toString());
+    }
+
+    @Test
+    void theaterAddMovie(){
+        ArrayList<String> movies = new ArrayList<String>();
+        Theater th = new Theater("Taj Movies", movies);
+        th.addMovie("Taken");
+        th.addMovie("Inception");
+        th.addMovie("Conjuring");
+
+        String expected = "This is a Theater instance, with name: Taj Movies, with these movies:\n" +
+                "Taken\n" +
+                "Inception\n" +
+                "Conjuring\n";
+        assertEquals(expected, th.toString());
+
+        // To check if duplicates are saved in the movies list:
+        th.addMovie("Inception");
+        th.addMovie("Conjuring");
+        th.addMovie("Conjuring");
+        assertEquals(expected, th.toString());
+    }
+
+    @Test
+    void theaterRemoveMovie(){
+        ArrayList<String> movies = new ArrayList<String>();
+        movies.add("Taken");
+        movies.add("Inception");
+        movies.add("Conjuring");
+        Theater th = new Theater("Taj Movies", movies);
+
+        String expected = "This is a Theater instance, with name: Taj Movies, with these movies:\n" +
+                "Taken\n" +
+                "Conjuring\n";
+
+        th.removeMovie("Inception");
+        assertEquals(expected, th.toString());
+
+        // To test if we pass a nonexistent movie, it would remove it or not:
+        th.removeMovie("not a movie :P");
+        assertEquals(expected, th.toString());
+    }
+
+    @Test
+    void theaterAddReview(){
+        ArrayList<String> movies = new ArrayList<String>();
+        Theater th = new Theater("Taj Movies", movies);
+
+        String expected = "[]";
+
+        assertEquals(expected, th.reviewsList.toString());
+
+        Review r1 = new Review("Nice", "Anas", 4 );
+        Review r2 = new Review("Great", "Majd", 5 );
+        Review r3 = new Review("Not so great", "Saify", 3 );
+        th.addReview(r1);
+        th.addReview(r2);
+        th.addReview(r3);
+
+        expected = "[Review instance, with body: Nice, author: Anas, stars: 4, Review instance, with body: Great, author: Majd, stars: 5, Review instance, with body: Not so great, author: Saify, stars: 3]";
+        assertEquals(expected, th.reviewsList.toString());
+    }
+
+    @Test
+    void theaterAddReviewWithMovie(){
+        ArrayList<String> movies = new ArrayList<String>();
+        Theater th = new Theater("Taj Movies", movies);
+
+        Review r1 = new Review("Nice", "Anas", 4 );
+        Review r2 = new Review("Great", "Majd", 5, "Your name");
+        Review r3 = new Review("Not so great", "Saify", 3, "Dark night");
+        th.addReview(r1);
+        th.addReview(r2);
+        th.addReview(r3);
+
+        String expected = "[Review instance, with body: Nice, author: Anas, stars: 4, Review instance, with body: Great, author: Majd, stars: 5, and his favourite movie: Your name, Review instance, with body: Not so great, author: Saify, stars: 3, and his favourite movie: Dark night]";
+
+        assertEquals(expected, th.reviewsList.toString());
+    }
+
+    @Test
+    void theaterStarsCount(){
+        ArrayList<String> movies = new ArrayList<String>();
+        Theater th = new Theater("Taj Movies", movies);
+
+        Review r1 = new Review("Nice", "Anas", 4 );
+        Review r2 = new Review("Great", "Majd", 5, "Your name");
+        Review r3 = new Review("Not so great", "Saify", 3, "Dark night");
+        th.addReview(r1);
+        th.addReview(r2);
+        th.addReview(r3);
+
+        double expected = 4.0;
+        assertEquals(expected, th.getStars());
+    }
+
+
 
 
 
