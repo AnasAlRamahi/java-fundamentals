@@ -1,35 +1,15 @@
-package main.java.inheritance;
+
+package inheritance;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class Restaurant {
-    private String name;
-    private double stars;
+public class Restaurant extends Service{
     private int priceCategory;
 
     public Restaurant(String name, double stars, int priceCategory) {
-        this.name = name;
-        this.stars = stars;
+        super(name, stars);
         this.priceCategory = priceCategory;
-    }
-    List<Review> reviewsList = new ArrayList<Review>();
-
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public double getStars() {
-        return stars;
-    }
-
-    public void setStars(int stars) {
-        this.stars = stars;
     }
 
     public int getPriceCategory() {
@@ -48,10 +28,4 @@ public class Restaurant {
         return  content;
     }
 
-    public void addReview(Review review){
-        if (!reviewsList.contains(review)) {
-            reviewsList.add(review);
-            this.stars = (this.stars * (reviewsList.size()) + review.getStars())/ (reviewsList.size()+1);
-        }
-    }
 }
